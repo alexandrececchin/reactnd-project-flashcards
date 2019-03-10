@@ -1,11 +1,16 @@
 import React from 'react';
 import { Image } from 'react-native';
-import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
+import {
+  createBottomTabNavigator,
+  createStackNavigator,
+  createAppContainer
+} from 'react-navigation';
 import Explore from './screens/Explore';
 import NewDeck from './screens/NewDeck';
+import Game from './screens/Game';
 import { Ionicons } from '@expo/vector-icons';
 
-export default createAppContainer(
+const tabs = createAppContainer(
   createBottomTabNavigator({
     Explore: {
       screen: Explore,
@@ -26,6 +31,23 @@ export default createAppContainer(
             style={{ height: 24, width: 24, tintColor: 'black' }}
           />
         )
+      }
+    }
+  })
+);
+
+export default createAppContainer(
+  createStackNavigator({
+    Home: {
+      screen: tabs
+    },
+    Game: {
+      screen: Game,
+      navigationOptions: {
+        headerTintColor: '#fff',
+        headerStyle: {
+          backgroundColor: '#292477'
+        }
       }
     }
   })

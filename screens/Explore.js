@@ -9,7 +9,8 @@ import {
   ScrollView,
   Image,
   Dimensions,
-  Animated
+  Animated,
+  TouchableOpacity
 } from 'react-native';
 import Deck from './components/Explore/Deck';
 import { Ionicons } from '@expo/vector-icons';
@@ -102,12 +103,15 @@ class Explore extends Component {
                   justifyContent: 'space-between'
                 }}
               >
-                <Deck name="DECK NAME 1" width={width} key={'deck1'} />
-                <Deck name="DECK NAME 2" width={width} key={'deck2'} />
-                <Deck name="DECK NAME 3" width={width} key={'deck3'} />
-                <Deck name="DECK NAME 4" width={width} key={'deck4'} />
-                <Deck name="DECK NAME 5" width={width} key={'deck5'} />
-                <Deck name="DECK NAME 6" width={width} key={'deck6'} />
+                <TouchableOpacity
+                  onPress={() =>
+                    this.props.navigation.navigate('Game', {
+                      entryId: 'deck1'
+                    })
+                  }
+                >
+                  <Deck name="DECK NAME 1" width={width} key={'deck1'} />
+                </TouchableOpacity>
               </View>
             </View>
           </ScrollView>
