@@ -4399,6 +4399,14 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
+prop-types@15.5.10:
+  version "15.5.10"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.10.tgz#2797dfc3126182e3a95e3dfbb2e893ddd7456154"
+  integrity sha1-J5ffwxJhguOpXj37suiT3ddFYVQ=
+  dependencies:
+    fbjs "^0.8.9"
+    loose-envify "^1.3.1"
+
 prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
@@ -4492,6 +4500,20 @@ react-native-branch@2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-2.2.5.tgz#4074dd63b4973e6397d9ce50e97b57c77a518e9d"
   integrity sha1-QHTdY7SXPmOX2c5Q6XtXx3pRjp0=
+
+react-native-card-flip@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-card-flip/-/react-native-card-flip-1.0.4.tgz#cf01fccbb98697842de7134a4f7b51ee69da430a"
+  integrity sha512-CbCLrcGxEkHP87Aid7YBZXQiiXin/dH8ve4UI4Xin7/fpmoWaSv2bRsCgcCvRsfYXvkyx1pgdBOBlGqLJy52cA==
+  dependencies:
+    prop-types "15.5.10"
+
+react-native-deck-swiper@^1.6.6:
+  version "1.6.6"
+  resolved "https://registry.yarnpkg.com/react-native-deck-swiper/-/react-native-deck-swiper-1.6.6.tgz#1a452024f112a15e4855e07921c3afb4f0973b46"
+  integrity sha512-Dkdm+Fyz2EZNFxl9f+k8cAvwSWjFYrY/xj84LqRaGzntKpl71GoX4Nzb3BHK9ITlK0OHKWcMkvLxDywIQmLdow==
+  dependencies:
+    prop-types "15.5.10"
 
 react-native-gesture-handler@~1.0.14:
   version "1.0.15"
