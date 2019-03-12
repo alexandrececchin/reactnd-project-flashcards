@@ -8,6 +8,7 @@ import {
 import Explore from './screens/Explore';
 import NewDeck from './screens/NewDeck';
 import Game from './screens/Game';
+import DeckDetails from './screens/DeckDetails';
 import NewCard from './screens/NewCard';
 import { Ionicons } from '@expo/vector-icons';
 import { Constants } from 'expo';
@@ -37,7 +38,7 @@ const Tabs = createAppContainer(
         screen: NewDeck,
         navigationOptions: {
           tabBarLabel: 'Create a Deck',
-          tabBarIcon: ({tintColor}) => (
+          tabBarIcon: ({ tintColor }) => (
             <Image
               source={require('./assets/new-deck.png')}
               style={{ height: 24, width: 24 }}
@@ -49,10 +50,10 @@ const Tabs = createAppContainer(
         screen: NewCard,
         navigationOptions: {
           tabBarLabel: 'Add Card',
-          tabBarIcon: ({tintColor}) => (
+          tabBarIcon: ({ tintColor }) => (
             <Image
               source={require('./assets/ace.png')}
-              style={{ height: 24, width: 24,}}
+              style={{ height: 24, width: 24 }}
             />
           )
         }
@@ -64,7 +65,7 @@ const Tabs = createAppContainer(
       },
       tabBarOptions: {
         labelStyle: {
-            fontSize: 14,
+          fontSize: 14
         },
         styel: {
           height: 56,
@@ -95,6 +96,15 @@ const MainNavigator = createAppContainer(
     },
     Game: {
       screen: Game,
+      navigationOptions: {
+        headerTintColor: white,
+        headerStyle: {
+          backgroundColor: purple
+        }
+      }
+    },
+    DeckDetails: {
+      screen: DeckDetails,
       navigationOptions: {
         headerTintColor: white,
         headerStyle: {
