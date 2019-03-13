@@ -10,6 +10,24 @@ export default function decks(state = {}, action) {
       const newState = { ...state };
       delete newState[action.payload.deckId];
       return newState;
+    case Types.ADD_CARD_SUCCESS:
+      const newState = {
+        ...state,
+        [action.payload.deckId]: {
+          cards: [...state[action.payload.deckId].cards, action.payload.data]
+        }
+      };
+      return newState;
+    case Type.DELETE_CARD_SUCCESS:
+      const newState = {
+        ...state,
+        [action.payload.deckId]: {
+          cards: state[action.payload.deckId].cards.filter(
+            card => card.id !== action.payload.id
+          )
+        }
+      };
+      return newState;
     default:
       return state;
   }
