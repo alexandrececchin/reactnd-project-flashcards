@@ -13,6 +13,8 @@ import NewCard from './screens/NewCard';
 import { Ionicons } from '@expo/vector-icons';
 import { Constants } from 'expo';
 import { purple, white, blue } from './utils/colors';
+import { Provider } from 'react-redux';
+import store from './state';
 
 function FlashStatusBar({ backgroundColor, ...props }) {
   return (
@@ -118,10 +120,12 @@ const MainNavigator = createAppContainer(
 export default class App extends React.Component {
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <FlashStatusBar backgroundColor={purple} barStyle="light-content" />
-        <MainNavigator />
-      </View>
+      <Provider store={store}>
+        <View style={{ flex: 1 }}>
+          <FlashStatusBar backgroundColor={purple} barStyle="light-content" />
+          <MainNavigator />
+        </View>
+      </Provider>
     );
   }
 }

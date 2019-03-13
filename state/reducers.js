@@ -11,15 +11,14 @@ export default function decks(state = {}, action) {
       delete newState[action.payload.deckId];
       return newState;
     case Types.ADD_CARD_SUCCESS:
-      const newState = {
+      return {
         ...state,
         [action.payload.deckId]: {
           cards: [...state[action.payload.deckId].cards, action.payload.data]
         }
       };
-      return newState;
-    case Type.DELETE_CARD_SUCCESS:
-      const newState = {
+    case Types.DELETE_CARD_SUCCESS:
+      return {
         ...state,
         [action.payload.deckId]: {
           cards: state[action.payload.deckId].cards.filter(
@@ -27,19 +26,18 @@ export default function decks(state = {}, action) {
           )
         }
       };
-      return newState;
     default:
       return state;
   }
 }
 
-const decks = state => state.decks;
+// const decks = state => state.decks;
 
-const getDeck = (state, id) => {
-  return state.decks[id];
-};
+// const getDeck = (state, id) => {
+//   return state.decks[id];
+// };
 
-export const Selectors = {
-  getDeck: (state, id) => getDeck(state, id),
-  getDecks: state => getDecks(state)
-};
+// export const Selectors = {
+//   getDeck: (state, id) => getDeck(state, id),
+//   getDecks: state => getDecks(state)
+// };

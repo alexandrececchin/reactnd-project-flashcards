@@ -14,6 +14,9 @@ import {
 } from 'react-native';
 import Deck from './components/Explore/Deck';
 import { Ionicons } from '@expo/vector-icons';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators as Actions } from '../state/actions';
 
 const { width, height } = Dimensions.get('window');
 
@@ -44,6 +47,12 @@ class Explore extends Component {
       extrapolate: 'clamp'
     });
   }
+
+  componentDidMount() {
+    const { retrieveInitialDataRequest } = this.props;
+    retrieveInitialDataRequest();
+  }
+
   render() {
     return (
       <SafeAreaView style={{ flex: 1 }}>
@@ -120,4 +129,16 @@ class Explore extends Component {
     );
   }
 }
-export default Explore;
+
+const mapDispatchToProps = dispatch => bindActionCreators(Actions, dispatch);
+
+function mapStateToProps({ decks }, props) {
+  return {
+    decks
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Explore);

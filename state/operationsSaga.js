@@ -1,4 +1,4 @@
-import { call, put } from 'redux-saga/effects';
+import { call, put, all, takeLatest } from 'redux-saga/effects';
 import { AsyncStorage } from 'react-native';
 import Actions from './actions';
 import Types from './types';
@@ -45,7 +45,7 @@ export function* deleteCard() {}
 
 export default function* rootSaga() {
   yield all([
-    takeLatest(Types.ADD_INITIAL_DATA_REQUEST, addInitialData),
+    takeLatest(Types.RETRIEVE_INITIAL_DATA_REQUEST, retrieveInitialData),
     takeLatest(Types.RETRIEVE_DECKS_REQUEST, retrieveDecks),
     takeLatest(Types.ADD_DECK_REQUEST, addDeck),
     takeLatest(Types.DELETE_DECK_REQUEST, deleteDeck),
