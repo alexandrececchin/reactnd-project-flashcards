@@ -1,13 +1,13 @@
 import Types from './types';
 
-export const creators = {
+export const Creators = {
   retrieveInitialDataRequest: () => ({
     type: Types.RETRIEVE_INITIAL_DATA_REQUEST
   }),
   retrieveDecksRequest: () => ({
     type: Types.RETRIEVE_DECKS_REQUEST
   }),
-  retrieveDecksSuccess: (data) => ({
+  retrieveDecksSuccess: data => ({
     type: Types.RETRIEVE_DECKS_REQUEST,
     payload: { data }
   }),
@@ -27,13 +27,13 @@ export const creators = {
     type: Types.DELETE_DECK_SUCCESS,
     payload: { id }
   }),
-  addCardRequest: (card, id) => ({
+  addCardRequest: (data, deckId) => ({
     type: Types.ADD_CARD_REQUEST,
-    payload: { card, id }
+    payload: { data, deckId }
   }),
-  addCardSuccess: (card, id) => ({
+  addCardSuccess: (data, deckId) => ({
     type: Types.ADD_CARD_SUCCESS,
-    payload: { card, id }
+    payload: { data, deckId }
   }),
   deleteCardRequest: (deckId, id) => ({
     type: Types.ADD_DELETE_REQUEST,
