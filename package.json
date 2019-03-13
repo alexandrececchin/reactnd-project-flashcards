@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "expo": "^32.0.0",
+    "normalizr": "^3.3.0",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-card-flip": "^1.0.4",
@@ -15,7 +16,8 @@
     "react-navigation": "^3.3.2",
     "react-redux": "^6.0.1",
     "redux": "^4.0.1",
-    "redux-saga": "^1.0.2"
+    "redux-saga": "^1.0.2",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0"
