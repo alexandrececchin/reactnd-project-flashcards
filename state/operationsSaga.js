@@ -2,6 +2,10 @@ import { call, put } from 'redux-saga/effects';
 import { AsyncStorage } from 'react-native';
 import Actions from './actions';
 import Types from './types';
+import { data as initalData } from '../utils/initialData';
+import { schema, normalize } from 'normalizr';
+
+export const deckSchema = new schema.Entity('decks');
 
 const KEY = '@ReactNDFlashcards:decks';
 const FIRST_ACCESS = '@ReactNDFlashcards:firstAccess';
@@ -13,10 +17,10 @@ export function* retrieveInitialData() {
 
     if (!isFirstAccess) {
       yield call([AsyncStorage, 'setItem'], FIRST_ACCESS, JSON.stringify(true));
-      const decks = {};
+      const decks = initalData;
 
       yield call([AsyncStorage, 'setItem'], key, JSON.stringify({ ...decks }));
-      yield put(Actions.retrieveDecksSuccess(decks));
+      yield put(Actions.retrieveDecksSuccess(normalize(decks, [deckSchema])));
     }
 
     yield put(Actions.retrieveDecksRequest());
@@ -27,7 +31,7 @@ export function* retrieveDecks() {
   try {
     const data = yield call([AsyncStorage, 'getItem'], KEY);
     const decks = JSON.parse(data);
-    yield put(Actions.retrieveDecksSuccess(decks));
+    yield put(Actions.retrieveDecksSuccess(normalize(decks, [deckSchema])));
   } catch (error) {}
 }
 
