@@ -12,7 +12,7 @@ import {
   Animated,
   TouchableOpacity
 } from 'react-native';
-import Deck from './components/Explore/Deck';
+import DeckList from './components/Explore/DeckList';
 import { Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -53,7 +53,14 @@ class Explore extends Component {
     retrieveInitialDataRequest();
   }
 
+  onPressDeck = id => {
+    this.props.navigation.navigate('Game', {
+      entryId: id
+    });
+  };
+
   render() {
+    const { decks } = this.props;
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <View style={{ flex: 1 }}>
@@ -103,25 +110,7 @@ class Explore extends Component {
               >
                 My Decks
               </Text>
-              <View
-                style={{
-                  paddingHorizontal: 20,
-                  marginTop: 20,
-                  flexDirection: 'row',
-                  flexWrap: 'wrap',
-                  justifyContent: 'space-between'
-                }}
-              >
-                <TouchableOpacity
-                  onPress={() =>
-                    this.props.navigation.navigate('Game', {
-                      entryId: 'deck1'
-                    })
-                  }
-                >
-                  <Deck name="DECK NAME 1" width={width} key={'deck1'} />
-                </TouchableOpacity>
-              </View>
+              <DeckList decks={decks} onPressDeck={this.onPressDeck} width={width}/>
             </View>
           </ScrollView>
         </View>
@@ -132,9 +121,9 @@ class Explore extends Component {
 
 const mapDispatchToProps = dispatch => bindActionCreators(Actions, dispatch);
 
-function mapStateToProps(state, props) {
+function mapStateToProps(state) {
   return {
-    decks: []
+    decks: Object.values(state)
   };
 }
 
