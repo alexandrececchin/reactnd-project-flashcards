@@ -132,9 +132,9 @@ class Explore extends Component {
 
 const mapDispatchToProps = dispatch => bindActionCreators(Actions, dispatch);
 
-function mapStateToProps({ decks }, props) {
+function mapStateToProps(state, props) {
   return {
-    decks
+    decks: []
   };
 }
 
