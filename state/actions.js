@@ -4,12 +4,9 @@ export const Creators = {
   retrieveInitialDataRequest: () => ({
     type: Types.RETRIEVE_INITIAL_DATA_REQUEST
   }),
-  retrieveDecksRequest: () => {
-    console.log('retrieveDecksRequest ');
-    return {
+  retrieveDecksRequest: () => ({
       type: Types.RETRIEVE_DECKS_REQUEST
-    };
-  },
+  }),
   retrieveDecksSuccess: data => ({
     type: Types.RETRIEVE_DECKS_SUCCESS,
     payload: { data }
