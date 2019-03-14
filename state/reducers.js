@@ -3,9 +3,9 @@ import Types from './types';
 export default function decks(state = {}, action) {
   switch (action.type) {
     case Types.RETRIEVE_DECKS_SUCCESS:
-      return { ...state, ...action.payload.data };
+      return { ...state, ...action.payload.data.entities.decks };
     case Types.ADD_DECK_SUCCESS:
-      return { ...state, [action.payload.id]: action.payload.deck };
+      return { ...state, [action.payload.id]: action.payload.data.entities.decks };
     case Types.DELETE_DECK_SUCCESS:
       const newState = { ...state };
       delete newState[action.payload.deckId];
