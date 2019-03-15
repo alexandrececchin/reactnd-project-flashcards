@@ -3,11 +3,11 @@ import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import rootSaga from './operationsSaga';
-import decks from './reducers';
+import reducers from './reducers';
 
 const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(decks, composeWithDevTools(applyMiddleware(sagaMiddleware)))
+const store = createStore(reducers, composeWithDevTools(applyMiddleware(sagaMiddleware)))
 
 sagaMiddleware.run(rootSaga);
 
