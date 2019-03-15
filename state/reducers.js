@@ -8,7 +8,7 @@ export function decks(state = {}, action) {
     case Types.ADD_DECK_SUCCESS:
       return {
         ...state,
-        [action.payload.id]: action.payload.data.entities.decks
+        ...action.payload.data.entities.decks
       };
     case Types.DELETE_DECK_SUCCESS:
       const newState = { ...state };

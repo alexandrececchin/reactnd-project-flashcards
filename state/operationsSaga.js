@@ -15,7 +15,7 @@ export function* retrieveInitialData() {
     const data = yield call([AsyncStorage, 'getItem'], FIRST_ACCESS);
     const isFirstAccess = JSON.parse(data);
 
-    if (!isFirstAccess) {
+    if (true) {
       yield call([AsyncStorage, 'setItem'], FIRST_ACCESS, JSON.stringify(true));
 
       yield call(
@@ -44,7 +44,26 @@ export function* retrieveDecks() {
   }
 }
 
-export function* addDeck(action) {}
+export function* addDeck(action) {
+  const { deck, deckId } = action.payload;
+
+  try {
+    const data = yield call([AsyncStorage, 'getItem'], KEY);
+    const decks = JSON.parse(data);
+    const newDecks = {
+      ...decks,
+      [deckId]: {
+        ...deck
+      }
+    };
+
+    yield call([AsyncStorage, 'setItem'], KEY, JSON.stringify({ ...newDecks }));
+
+    yield put(Actions.addDeckSuccess(normalize(deck, deckSchema), deckId));
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 export function* deleteDeck(action) {}
 

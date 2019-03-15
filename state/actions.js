@@ -11,21 +11,21 @@ export const Creators = {
     type: Types.RETRIEVE_DECKS_SUCCESS,
     payload: { data }
   }),
-  addDeckRequest: (deck, id) => ({
+  addDeckRequest: (deck, deckId) => ({
     type: Types.ADD_DECK_REQUEST,
-    payload: { deck, id }
+    payload: { deck, deckId }
   }),
-  addDeckSuccess: (deck, id) => ({
+  addDeckSuccess: (data, deckId) => ({
     type: Types.ADD_DECK_SUCCESS,
-    payload: { deck, id }
+    payload: { data, deckId }
   }),
-  deleteDeckRequest: id => ({
+  deleteDeckRequest: deckId => ({
     type: Types.DELETE_DECK_REQUEST,
-    payload: { id }
+    payload: { deckId }
   }),
-  deleteDeckSuccess: id => ({
+  deleteDeckSuccess: deckId => ({
     type: Types.DELETE_DECK_SUCCESS,
-    payload: { id }
+    payload: { deckId }
   }),
   addCardRequest: (card, deckId) => ({
     type: Types.ADD_CARD_REQUEST,
