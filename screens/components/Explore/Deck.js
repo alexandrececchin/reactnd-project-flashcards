@@ -6,8 +6,8 @@ class Deck extends Component {
     return (
       <View
         style={{
-          width: this.props.width / 2 - 40,
-          height: this.props.width / 2 - 40,
+          width: this.props.width / 2 - 50,
+          height: this.props.width / 2 - 50,
           borderWidth: 1,
           borderColor: '#dddddd',
           marginLeft: 5,

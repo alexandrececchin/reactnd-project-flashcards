@@ -7,10 +7,8 @@ import {
   Platform,
   StatusBar,
   ScrollView,
-  Image,
   Dimensions,
   Animated,
-  TouchableOpacity
 } from 'react-native';
 import DeckList from './components/Explore/DeckList';
 import { Ionicons } from '@expo/vector-icons';
@@ -97,7 +95,7 @@ class Explore extends Component {
                   paddingHorizontal: 20
                 }}
               >
-                My Decks
+                My Decks ( {decks.length} )
               </Text>
               <DeckList decks={decks} onPressDeck={this.onPressDeck} width={width}/>
             </View>
