@@ -17,6 +17,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as Actions } from '../state/actions';
+import { Selectors } from '../state/reducers';
 
 const { width, height } = Dimensions.get('window');
 
@@ -34,18 +35,6 @@ class Explore extends Component {
       outputRange: [this.startHeaderHeight, this.endHeaderHeight],
       extrapolate: 'clamp'
     });
-
-    this.animatedOpacity = this.animatedHeaderHeight.interpolate({
-      inputRange: [this.endHeaderHeight, this.startHeaderHeight],
-      outputRange: [0, 1],
-      extrapolate: 'clamp'
-    });
-
-    this.animatedTagTop = this.animatedHeaderHeight.interpolate({
-      inputRange: [this.endHeaderHeight, this.startHeaderHeight],
-      outputRange: [-35, 10],
-      extrapolate: 'clamp'
-    });
   }
 
   componentDidMount() {
@@ -54,7 +43,7 @@ class Explore extends Component {
   }
 
   onPressDeck = id => {
-    this.props.navigation.navigate('Game', {
+    this.props.navigation.navigate('DeckDetails', {
       entryId: id
     });
   };
@@ -123,7 +112,7 @@ const mapDispatchToProps = dispatch => bindActionCreators(Actions, dispatch);
 
 function mapStateToProps(state) {
   return {
-    decks: Object.values(state)
+    decks: Selectors.getDecks(state)
   };
 }
 

@@ -31,13 +31,13 @@ export default function decks(state = {}, action) {
   }
 }
 
-// const decks = state => state.decks;
+const getDecks = state => state ? Object.values(state) : [];
 
-// const getDeck = (state, id) => {
-//   return state.decks[id];
-// };
+const getDeck = (state, id) => {
+  return state[id];
+};
 
-// export const Selectors = {
-//   getDeck: (state, id) => getDeck(state, id),
-//   getDecks: state => getDecks(state)
-// };
+export const Selectors = {
+  getDeck: (state, id) => getDeck(state, id),
+  getDecks: (state) => getDecks(state)
+};
