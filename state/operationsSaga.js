@@ -39,16 +39,56 @@ export function* retrieveDecks() {
     const data = yield call([AsyncStorage, 'getItem'], KEY);
     const decks = JSON.parse(data);
     yield put(Actions.retrieveDecksSuccess(normalize(decks, [deckSchema])));
-  } catch (error) {}
+  } catch (error) {
+    console.error(error);
+  }
 }
 
-export function* addDeck() {}
+export function* addDeck(action) {}
 
-export function* deleteDeck() {}
+export function* deleteDeck(action) {}
 
-export function* addCard() {}
+export function* addCard(action) {
+  const { deckId, card } = action.payload;
 
-export function* deleteCard() {}
+  try {
+    const data = yield call([AsyncStorage, 'getItem'], KEY);
+    const decks = JSON.parse(data);
+    const newDecks = {
+      ...decks,
+      deckId: {
+        ...decks[deckId],
+        cards: [...decks[deckId].cards, card]
+      }
+    };
+    yield call([AsyncStorage, 'setItem'], KEY, JSON.stringify({ ...newDecks }));
+
+    yield put(Actions.addCardSuccess(data, deckId));
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export function* deleteCard(action) {
+  const { deckId, id } = action.payload;
+
+  try {
+    const data = yield call([AsyncStorage, 'getItem'], KEY);
+    const decks = JSON.parse(data);
+    const newDecks = {
+      ...decks,
+      deckId: {
+        ...decks[deckId],
+        cards: decks[deckId].cards.filter(card => card.id !== id)
+      }
+    };
+    yield call([AsyncStorage, 'setItem'], KEY, JSON.stringify({ ...newDecks }));
+
+    yield put(Actions.deleteCardSuccess(deckId, id));
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 export default function* rootSaga() {
   yield all([

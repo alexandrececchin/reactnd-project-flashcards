@@ -5,7 +5,7 @@ export const Creators = {
     type: Types.RETRIEVE_INITIAL_DATA_REQUEST
   }),
   retrieveDecksRequest: () => ({
-      type: Types.RETRIEVE_DECKS_REQUEST
+    type: Types.RETRIEVE_DECKS_REQUEST
   }),
   retrieveDecksSuccess: data => ({
     type: Types.RETRIEVE_DECKS_SUCCESS,
@@ -27,20 +27,20 @@ export const Creators = {
     type: Types.DELETE_DECK_SUCCESS,
     payload: { id }
   }),
-  addCardRequest: (data, deckId) => ({
+  addCardRequest: (card, deckId) => ({
     type: Types.ADD_CARD_REQUEST,
-    payload: { data, deckId }
+    payload: { card, deckId }
   }),
-  addCardSuccess: (data, deckId) => ({
+  addCardSuccess: (card, deckId) => ({
     type: Types.ADD_CARD_SUCCESS,
-    payload: { data, deckId }
+    payload: { card, deckId }
   }),
   deleteCardRequest: (deckId, id) => ({
-    type: Types.ADD_DELETE_REQUEST,
+    type: Types.DELETE_CARD_REQUEST,
     payload: { deckId, id }
   }),
   deleteCardSuccess: (deckId, id) => ({
-    type: Types.ADD_DELETE_SUCCESS,
+    type: Types.DELETE_CARD_SUCCESS,
     payload: { deckId, id }
   })
 };
