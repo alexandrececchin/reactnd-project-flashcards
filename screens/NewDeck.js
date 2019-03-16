@@ -14,6 +14,7 @@ import {
 import { Input, Button } from 'react-native-elements';
 import uuid from 'uuid';
 import Loader from './components/Loader/loader';
+import { purple, white, black } from '../utils/colors';
 
 const BG_IMAGE = require('../assets/10-code-deck.jpg');
 
@@ -60,12 +61,12 @@ class NewDeck extends Component {
                 <Text style={styles.plusText}>+</Text>
               </View>
             </View>
-            <View style={styles.loginInput}>
+            <View style={styles.input}>
               <Input
                 containerStyle={{ marginVertical: 10 }}
                 onChangeText={name => this.setState({ name })}
                 value={this.state.name}
-                inputStyle={{ marginLeft: 10, color: 'white' }}
+                inputStyle={{ marginLeft: 10, color: black }}
                 keyboardAppearance="light"
                 placeholder="Deck Name"
                 autoFocus={false}
@@ -77,7 +78,7 @@ class NewDeck extends Component {
                   this.setState({ name_valid: this.validateName(name) });
                 }}
                 blurOnSubmit={false}
-                placeholderTextColor="white"
+                placeholderTextColor={black}
                 errorStyle={{ textAlign: 'center', fontSize: 12 }}
                 errorMessage={
                   this.state.name_valid
@@ -92,18 +93,18 @@ class NewDeck extends Component {
               underlayColor="transparent"
               onPress={this.addNewDeck.bind(this)}
               loading={this.props.loading}
-              loadingProps={{ size: 'small', color: 'white' }}
+              loadingProps={{ size: 'small', color: white }}
               disabled={!this.state.name_valid}
               buttonStyle={{
                 height: 50,
                 width: 250,
-                backgroundColor: 'transparent',
+                backgroundColor: purple,
                 borderWidth: 2,
-                borderColor: 'white',
+                borderColor: white,
                 borderRadius: 30
               }}
               containerStyle={{ marginVertical: 10 }}
-              titleStyle={{ fontWeight: 'bold', color: 'white' }}
+              titleStyle={{ fontWeight: 'bold', color: white }}
             />
           </View>
         </ImageBackground>
@@ -133,11 +134,11 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   titleText: {
-    color: 'white',
+    color: black,
     fontSize: 30
   },
   plusText: {
-    color: 'white',
+    color: black,
     fontSize: 30
   },
   input: {
