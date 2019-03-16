@@ -24,68 +24,66 @@ function FlashStatusBar({ backgroundColor, ...props }) {
   );
 }
 
-const Tabs = createAppContainer(
-  createBottomTabNavigator(
-    {
-      Explore: {
-        screen: Explore,
-        navigationOptions: {
-          tabBarLabel: 'Explore',
-          tabBarIcon: ({ tintColor }) => (
-            <Ionicons name="ios-search" color={tintColor} size={24} />
-          )
-        }
-      },
-      NewDeck: {
-        screen: NewDeck,
-        navigationOptions: {
-          tabBarLabel: 'Create a Deck',
-          tabBarIcon: ({ tintColor }) => (
-            <MaterialCommunityIcons
-              name="cards-outline"
-              color={tintColor}
-              size={24}
-            />
-          )
-        }
-      },
-      NewCard: {
-        screen: NewCard,
-        navigationOptions: {
-          tabBarLabel: 'Add Card',
-          tabBarIcon: ({ tintColor }) => (
-            <MaterialCommunityIcons
-              name="cards-spade"
-              color={tintColor}
-              size={24}
-            />
-          )
-        }
+const Tabs = createBottomTabNavigator(
+  {
+    Explore: {
+      screen: Explore,
+      navigationOptions: {
+        tabBarLabel: 'Explore',
+        tabBarIcon: ({ tintColor }) => (
+          <Ionicons name="ios-search" color={tintColor} size={24} />
+        )
       }
     },
-    {
+    NewDeck: {
+      screen: NewDeck,
       navigationOptions: {
-        header: null
-      },
-      tabBarOptions: {
-        labelStyle: {
-          fontSize: 14
-        },
-        style: {
-          activeTintColor: Platform.OS === 'ios' ? purple : white,
-          height: 56,
-          backgroundColor: Platform.OS === 'ios' ? white : purple,
-          shadowColor: 'rgba(0, 0, 0, 0.24)',
-          shadowOffset: {
-            width: 0,
-            height: 3
-          },
-          shadowRadius: 6,
-          shadowOpacity: 1
-        }
+        tabBarLabel: 'Create a Deck',
+        tabBarIcon: ({ tintColor }) => (
+          <MaterialCommunityIcons
+            name="cards-outline"
+            color={tintColor}
+            size={24}
+          />
+        )
+      }
+    },
+    NewCard: {
+      screen: NewCard,
+      navigationOptions: {
+        tabBarLabel: 'Add Card',
+        tabBarIcon: ({ tintColor }) => (
+          <MaterialCommunityIcons
+            name="cards-spade"
+            color={tintColor}
+            size={24}
+          />
+        )
       }
     }
-  )
+  },
+  {
+    navigationOptions: {
+      header: null
+    },
+    tabBarOptions: {
+      labelStyle: {
+        fontSize: 14
+      },
+      style: {
+        activeTintColor: purple,
+        inactiveTintColor: "grey",
+        backgroundColor: white,
+        shadowColor: 'rgba(0, 0, 0, 0.24)',
+        shadowOffset: {
+          width: 0,
+          height: 3
+        },
+        shadowRadius: 6,
+        shadowOpacity: 1
+      }
+    }
+  }
 );
 
 const MainNavigator = createAppContainer(
