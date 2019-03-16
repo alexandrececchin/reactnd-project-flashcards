@@ -15,7 +15,7 @@ import { Creators as Actions } from '../state/actions';
 import { bindActionCreators } from 'redux';
 import { Card, Button } from 'react-native-elements';
 import Loader from './components/Loader/loader';
-
+import { purple } from '../utils/colors';
 const { width } = Dimensions.get('window');
 
 export class DeckDetails extends Component {
@@ -26,7 +26,7 @@ export class DeckDetails extends Component {
     this.endHeaderHeight = 50;
     if (Platform.OS == 'android') {
       this.startHeaderHeight = 100 + StatusBar.currentHeight;
-      this.endHeaderHeight = 65 + StatusBar.currentHeight;
+      this.endHeaderHeight = 20 + StatusBar.currentHeight;
     }
     this.animatedHeaderHeight = this.scrollY.interpolate({
       inputRange: [0, 50],
@@ -40,11 +40,75 @@ export class DeckDetails extends Component {
     deleteCardRequest(deckId, cardId);
   };
 
+  deleteDeck = deckId => {
+    const { deleteDeckRequest, goBack } = this.props;
+    deleteDeckRequest(deckId);
+    goBack();
+  };
+
   render() {
     const { deck, loading } = this.props;
+    if (!deck) {
+      return <Loader loading={loading} />;
+    }
     return (
       <View style={{ flex: 1 }}>
-        <Loader loading={loading} />
+        <Animated.View
+          style={{
+            height: this.animatedHeaderHeight,
+            backgroundColor: 'white',
+            borderBottomWidth: 1,
+            borderBottomColor: '#dddddd'
+          }}
+        >
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'row'
+            }}
+          >
+            <Button
+              icon={{
+                name: 'play-circle',
+                type: 'font-awesome',
+                size: 15,
+                color: 'white'
+              }}
+              onPress={() => console.log("let's Play baby")}
+              iconRight
+              iconContainerStyle={{ marginLeft: 10 }}
+              buttonStyle={{
+                backgroundColor: purple,
+                borderColor: 'transparent',
+                borderWidth: 0,
+                borderRadius: 30
+              }}
+              containerStyle={{ width: 100 }}
+            />
+            <Button
+              icon={{
+                name: 'minus-circle',
+                type: 'font-awesome',
+                size: 15,
+                color: 'white'
+              }}
+              iconRight
+              iconContainerStyle={{ marginLeft: 10 }}
+              onPress={() => this.deleteDeck(deck.id)}
+              buttonStyle={{
+                backgroundColor: purple,
+                borderColor: 'transparent',
+                borderWidth: 0,
+                borderRadius: 30,
+                marginLeft: 10
+              }}
+              containerStyle={{ width: 100 }}
+            />
+          </View>
+        </Animated.View>
+
         <ScrollView
           scrollEventThrottle={16}
           onScroll={Animated.event([
@@ -71,6 +135,9 @@ export class DeckDetails extends Component {
               }}
             >
               {deck.cards.map(card => {
+                if (!card || !card.id) {
+                  return <Text>Card with problem {JSON.stringify(card)}</Text>;
+                }
                 return (
                   <Card key={card.id} containerStyle={{ borderWidth: 2 }}>
                     <View
@@ -88,7 +155,9 @@ export class DeckDetails extends Component {
                       </Text>
                       <Button
                         title={'Delete'}
-                        backgroundColor="#03A9F4"
+                        buttonStyle={{
+                          backgroundColor: purple
+                        }}
                         onPress={() => this.deleteCard(deck.id, card.id)}
                       />
                     </View>
@@ -103,12 +172,20 @@ export class DeckDetails extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators(Actions, dispatch);
+const mapDispatchToProps = (dispatch, { navigation }) => {
+  const bindedActions = bindActionCreators(Actions, dispatch);
+  return {
+    goBack: () => navigation.goBack(),
+    ...bindedActions
+  };
+};
 
 const mapStateToProps = (state, { navigation }) => {
   const { entryId } = navigation.state.params;
+  const deck = Selectors.getDeck(state, entryId);
+  console.log('Deck Delete', deck)
   return {
-    deck: Selectors.getDeck(state, entryId),
+    deck,
     loading: Selectors.isLoading(state)
   };
 };

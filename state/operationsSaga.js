@@ -68,7 +68,30 @@ export function* addDeck(action) {
   }
 }
 
-export function* deleteDeck(action) {}
+export function* deleteDeck(action) {
+  const { deckId } = action.payload;
+
+  try {
+    const data = yield call([AsyncStorage, 'getItem'], KEY);
+    const decks = JSON.parse(data) || {};
+
+    const newDecks = { ...decks };
+    delete newDecks[deckId];
+
+    yield call(
+      [AsyncStorage, 'setItem'],
+      KEY,
+      JSON.stringify({
+        ...newDecks
+      })
+    );
+
+    yield put(Actions.deleteDeckSuccess(deckId));
+  } catch (error) {
+    yield put(Actions.addDeckError());
+    console.error(error);
+  }
+}
 
 export function* addCard(action) {
   const { deckId, card } = action.payload;
