@@ -21,12 +21,16 @@ const BG_IMAGE = require('../assets/10-code-deck.jpg');
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
+const INITIAL_STATE = {
+  name: '',
+  name_valid: true
+};
+
 class NewDeck extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      name_valid: false
+      ...INITIAL_STATE
     };
   }
 
@@ -59,7 +63,7 @@ class NewDeck extends Component {
       cards: []
     };
     addDeckRequest(newDeck, newDeck.id);
-    this.setState({ name: '', name_valid: true }, function a() {
+    this.setState({ ...INITIAL_STATE }, function a() {
       goBack();
     });
   }
