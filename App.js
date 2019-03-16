@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, StatusBar, Platform } from 'react-native';
+import { View, StatusBar, Platform } from 'react-native';
 import {
   createBottomTabNavigator,
   createStackNavigator,
@@ -10,7 +10,7 @@ import NewDeck from './screens/NewDeck';
 import Game from './screens/Game';
 import DeckDetails from './screens/DeckDetails';
 import NewCard from './screens/NewCard';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Constants } from 'expo';
 import { purple, white, blue } from './utils/colors';
 import { Provider } from 'react-redux';
@@ -41,9 +41,10 @@ const Tabs = createAppContainer(
         navigationOptions: {
           tabBarLabel: 'Create a Deck',
           tabBarIcon: ({ tintColor }) => (
-            <Image
-              source={require('./assets/new-deck.png')}
-              style={{ height: 24, width: 24 }}
+            <MaterialCommunityIcons
+              name="cards-outline"
+              color={tintColor}
+              size={24}
             />
           )
         }
@@ -53,9 +54,10 @@ const Tabs = createAppContainer(
         navigationOptions: {
           tabBarLabel: 'Add Card',
           tabBarIcon: ({ tintColor }) => (
-            <Image
-              source={require('./assets/ace.png')}
-              style={{ height: 24, width: 24 }}
+            <MaterialCommunityIcons
+              name="cards-spade"
+              color={tintColor}
+              size={24}
             />
           )
         }
@@ -69,7 +71,8 @@ const Tabs = createAppContainer(
         labelStyle: {
           fontSize: 14
         },
-        styel: {
+        style: {
+          activeTintColor: Platform.OS === 'ios' ? purple : white,
           height: 56,
           backgroundColor: Platform.OS === 'ios' ? white : purple,
           shadowColor: 'rgba(0, 0, 0, 0.24)',
@@ -88,13 +91,7 @@ const Tabs = createAppContainer(
 const MainNavigator = createAppContainer(
   createStackNavigator({
     Home: {
-      screen: Tabs,
-      navigationOptions: {
-        headerTintColor: white,
-        headerStyle: {
-          backgroundColor: purple
-        }
-      }
+      screen: Tabs
     },
     Game: {
       screen: Game,
@@ -121,10 +118,8 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <View style={{ flex: 1 }}>
-          <FlashStatusBar backgroundColor={purple} barStyle="light-content" />
-          <MainNavigator />
-        </View>
+        <FlashStatusBar backgroundColor={purple} barStyle="light-content" />
+        <MainNavigator />
       </Provider>
     );
   }
