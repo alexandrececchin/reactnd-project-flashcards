@@ -40,9 +40,9 @@ export const Creators = {
     type: Types.ADD_CARD_REQUEST,
     payload: { card, deckId }
   }),
-  addCardSuccess: (card, deckId) => ({
+  addCardSuccess: (data, deckId) => ({
     type: Types.ADD_CARD_SUCCESS,
-    payload: { card, deckId }
+    payload: { data, deckId }
   }),
   addCardError: () => ({
     type: Types.ADD_CARD_ERROR

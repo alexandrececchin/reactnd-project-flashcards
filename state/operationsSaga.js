@@ -72,7 +72,6 @@ export function* deleteDeck(action) {}
 
 export function* addCard(action) {
   const { deckId, card } = action.payload;
-  console.log('Add Card :', card);
   try {
     const data = yield call([AsyncStorage, 'getItem'], KEY);
     const decks = JSON.parse(data);
@@ -85,7 +84,7 @@ export function* addCard(action) {
     };
     yield call([AsyncStorage, 'setItem'], KEY, JSON.stringify({ ...newDecks }));
 
-    yield put(Actions.addCardSuccess(data, deckId));
+    yield put(Actions.addCardSuccess(card, deckId));
   } catch (error) {
     yield put(Actions.addCardError());
     console.error(error);
