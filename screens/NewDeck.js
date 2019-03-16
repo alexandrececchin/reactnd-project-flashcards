@@ -26,13 +26,28 @@ class NewDeck extends Component {
     super(props);
     this.state = {
       name: '',
-      name_valid: true
+      name_valid: false
     };
   }
 
-  validateEmail(name) {
+  validateName(name) {
     var re = /^\s+$|^$/;
     return !re.test(name);
+  }
+
+  validateAndSubmit() {
+    const { name } = this.state;
+    this.setState({ name_valid: this.validateName(this.state.name) });
+    this.setState(
+      {
+        name_valid: this.validateName(name)
+      },
+      function a() {
+        if (this.state.name_valid) {
+          this.addNewCard();
+        }
+      }
+    );
   }
 
   addNewDeck() {
@@ -75,7 +90,9 @@ class NewDeck extends Component {
                 returnKeyType="next"
                 ref={input => (this.NameInput = input)}
                 onSubmitEditing={() => {
-                  this.setState({ name_valid: this.validateName(name) });
+                  this.setState({
+                    name_valid: this.validateName(this.state.name)
+                  });
                 }}
                 blurOnSubmit={false}
                 placeholderTextColor={black}

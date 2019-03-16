@@ -15,7 +15,7 @@ export function* retrieveInitialData() {
     const data = yield call([AsyncStorage, 'getItem'], FIRST_ACCESS);
     const isFirstAccess = JSON.parse(data);
 
-    if (true) {
+    if (!isFirstAccess) {
       yield call([AsyncStorage, 'setItem'], FIRST_ACCESS, JSON.stringify(true));
 
       yield call(
@@ -30,6 +30,7 @@ export function* retrieveInitialData() {
       yield put(Actions.retrieveDecksRequest());
     }
   } catch (error) {
+    yield put(Actions.retrieveDecksError());
     console.error(error);
   }
 }
@@ -40,6 +41,7 @@ export function* retrieveDecks() {
     const decks = JSON.parse(data);
     yield put(Actions.retrieveDecksSuccess(normalize(decks, [deckSchema])));
   } catch (error) {
+    yield put(Actions.retrieveDecksError());
     console.error(error);
   }
 }
@@ -61,6 +63,7 @@ export function* addDeck(action) {
 
     yield put(Actions.addDeckSuccess(normalize(deck, deckSchema), deckId));
   } catch (error) {
+    yield put(Actions.addDeckError());
     console.error(error);
   }
 }
@@ -69,13 +72,13 @@ export function* deleteDeck(action) {}
 
 export function* addCard(action) {
   const { deckId, card } = action.payload;
-
+  console.log('Add Card :', card);
   try {
     const data = yield call([AsyncStorage, 'getItem'], KEY);
     const decks = JSON.parse(data);
     const newDecks = {
       ...decks,
-      deckId: {
+      [deckId]: {
         ...decks[deckId],
         cards: [...decks[deckId].cards, card]
       }
@@ -84,6 +87,7 @@ export function* addCard(action) {
 
     yield put(Actions.addCardSuccess(data, deckId));
   } catch (error) {
+    yield put(Actions.addCardError());
     console.error(error);
   }
 }
@@ -105,6 +109,7 @@ export function* deleteCard(action) {
 
     yield put(Actions.deleteCardSuccess(deckId, id));
   } catch (error) {
+    yield put(Actions.deleteCardError());
     console.error(error);
   }
 }
