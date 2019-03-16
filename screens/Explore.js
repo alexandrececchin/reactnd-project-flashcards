@@ -26,7 +26,7 @@ class Explore extends Component {
     this.endHeaderHeight = 50;
     if (Platform.OS == 'android') {
       this.startHeaderHeight = 100 + StatusBar.currentHeight;
-      this.endHeaderHeight = 65 + StatusBar.currentHeight;
+      this.endHeaderHeight = 40 + StatusBar.currentHeight;
     }
     this.animatedHeaderHeight = this.scrollY.interpolate({
       inputRange: [0, 50],

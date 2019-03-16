@@ -11,7 +11,7 @@ import {
   Picker,
   KeyboardAvoidingView
 } from 'react-native';
-import { Input, Button, Card } from 'react-native-elements';
+import { Input, Button } from 'react-native-elements';
 import uuid from 'uuid';
 import Loader from './components/Loader/loader';
 import { white, purple, black } from '../utils/colors';

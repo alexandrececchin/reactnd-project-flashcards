@@ -9,7 +9,8 @@ import {
   Text,
   StyleSheet,
   ImageBackground,
-  Dimensions
+  Dimensions,
+  KeyboardAvoidingView
 } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import uuid from 'uuid';
@@ -48,7 +49,7 @@ class NewDeck extends Component {
       },
       function a() {
         if (this.state.name_valid) {
-          this.addNewCard();
+          this.addNewDeck();
         }
       }
     );
@@ -70,7 +71,7 @@ class NewDeck extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container}>
         <Loader loading={this.props.loading} />
         <ImageBackground source={BG_IMAGE} style={styles.bgImage}>
           <View style={styles.formView}>
@@ -85,7 +86,7 @@ class NewDeck extends Component {
                 containerStyle={{ marginVertical: 10 }}
                 onChangeText={name => this.setState({ name })}
                 value={this.state.name}
-                inputStyle={{ marginLeft: 10, color: black }}
+                inputStyle={{ marginLeft: 10, color: white }}
                 keyboardAppearance="light"
                 placeholder="Deck Name"
                 autoFocus={false}
@@ -99,7 +100,7 @@ class NewDeck extends Component {
                   });
                 }}
                 blurOnSubmit={false}
-                placeholderTextColor={black}
+                placeholderTextColor={white}
                 errorStyle={{ textAlign: 'center', fontSize: 12 }}
                 errorMessage={
                   this.state.name_valid
@@ -112,7 +113,7 @@ class NewDeck extends Component {
               title="Create Deck"
               activeOpacity={1}
               underlayColor="transparent"
-              onPress={this.addNewDeck.bind(this)}
+              onPress={this.validateAndSubmit.bind(this)}
               loading={this.props.loading}
               loadingProps={{ size: 'small', color: white }}
               disabled={!this.state.name_valid}
@@ -129,7 +130,7 @@ class NewDeck extends Component {
             />
           </View>
         </ImageBackground>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
