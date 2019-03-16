@@ -76,7 +76,7 @@ class NewCard extends Component {
     const { question, question_valid, answer, answer_valid } = this.state;
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
-        <Loader loading={this.props.loading} />
+        <Loader loading={loading} />
         <View style={styles.formView}>
           <View style={styles.title}>
             <View style={{ flexDirection: 'row' }}>
