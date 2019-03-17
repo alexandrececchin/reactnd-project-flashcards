@@ -37,7 +37,43 @@ const CardTile = ({ handleAnswer, card, cardIndex }) => {
           style={[styles.card, styles.card2]}
           onPress={this.onPressCard}
         >
-          <Text style={[styles.label, { color: black }]}>CD</Text>
+          <Text style={[styles.label, { color: black }]}>{card.answer}</Text>
+          <View style={styles.buttonContainer}>
+            <Button
+              icon={{
+                name: 'times-circle',
+                type: 'font-awesome',
+                size: 15,
+                color: 'white'
+              }}
+              iconRight
+              iconContainerStyle={{ marginLeft: 10 }}
+              buttonStyle={{
+                backgroundColor: purple,
+                borderColor: 'transparent',
+                borderWidth: 0,
+                marginLeft: 10
+              }}
+              containerStyle={{ width: 100 }}
+            />
+            <Button
+              icon={{
+                name: 'check-circle',
+                type: 'font-awesome',
+                size: 15,
+                color: 'white'
+              }}
+              iconRight
+              iconContainerStyle={{ marginLeft: 10 }}
+              buttonStyle={{
+                backgroundColor: purple,
+                borderColor: 'transparent',
+                borderWidth: 0,
+                marginLeft: 10
+              }}
+              containerStyle={{ width: 100 }}
+            />
+          </View>
         </TouchableOpacity>
       </CardFlip>
     </View>
@@ -78,6 +114,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'System',
     backgroundColor: 'transparent'
+  },
+  buttonContainer: {
+    marginTop: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row'
   }
 });
 export default CardTile;
