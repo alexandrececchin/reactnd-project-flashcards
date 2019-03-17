@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
   View,
-  Text,
   Platform,
   StatusBar,
   ScrollView,
@@ -13,10 +12,11 @@ import { connect } from 'react-redux';
 import { Selectors } from '../state/reducers';
 import { Creators as Actions } from '../state/actions';
 import { bindActionCreators } from 'redux';
-import { Card, Button } from 'react-native-elements';
+import { Button, Text } from 'react-native-elements';
 import Loader from './components/Loader/loader';
 import { purple } from '../utils/colors';
-const { width } = Dimensions.get('window');
+import CardList from './components/DeckDetail/CardList';
+import EmptyCardList from './components/DeckDetail/EmptyCardList';
 
 export class DeckDetails extends Component {
   state = { loading: false };
@@ -123,6 +123,7 @@ export class DeckDetails extends Component {
         >
           <View style={{ marginTop: 40 }}>
             <Text
+              h3
               style={{
                 fontSize: 24,
                 fontWeight: '700',
@@ -132,45 +133,11 @@ export class DeckDetails extends Component {
             >
               {deck.name}
             </Text>
-            <View
-              style={{
-                alignSelf: 'center',
-                marginTop: 20,
-                flexWrap: 'wrap',
-                justifyContent: 'space-between'
-              }}
-            >
-              {deck.cards.map(card => {
-                if (!card || !card.id) {
-                  return <Text>Card with problem {JSON.stringify(card)}</Text>;
-                }
-                return (
-                  <Card key={card.id} containerStyle={{ borderWidth: 2 }}>
-                    <View
-                      style={{
-                        width: width / 2
-                      }}
-                    >
-                      <Text style={{ marginBottom: 5 }}>
-                        <Text style={{ fontWeight: 'bold' }}>Question:</Text>{' '}
-                        {card.question}
-                      </Text>
-                      <Text style={{ marginBottom: 5 }}>
-                        <Text style={{ fontWeight: 'bold' }}>Answer:</Text>{' '}
-                        {card.answer}
-                      </Text>
-                      <Button
-                        title={'Delete'}
-                        buttonStyle={{
-                          backgroundColor: purple
-                        }}
-                        onPress={() => this.deleteCard(deck.id, card.id)}
-                      />
-                    </View>
-                  </Card>
-                );
-              })}
-            </View>
+            { !deck.cards || deck.cards.length <= 0 ? (
+              <EmptyCardList />
+            ) : (
+              <CardList deckId={deck.id} cards={deck.cards} />
+            )}
           </View>
         </ScrollView>
       </View>
@@ -189,7 +156,6 @@ const mapDispatchToProps = (dispatch, { navigation }) => {
 const mapStateToProps = (state, { navigation }) => {
   const { entryId } = navigation.state.params;
   const deck = Selectors.getDeck(state, entryId);
-  console.log('Deck Delete', deck);
   return {
     deck,
     loading: Selectors.isLoading(state)
