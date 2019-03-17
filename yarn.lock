@@ -4614,10 +4614,10 @@ react-native-debugger-open@^0.3.18:
     minimist "^1.2.0"
     semver "^5.4.1"
 
-react-native-deck-swiper@^1.6.6:
-  version "1.6.6"
-  resolved "https://registry.yarnpkg.com/react-native-deck-swiper/-/react-native-deck-swiper-1.6.6.tgz#1a452024f112a15e4855e07921c3afb4f0973b46"
-  integrity sha512-Dkdm+Fyz2EZNFxl9f+k8cAvwSWjFYrY/xj84LqRaGzntKpl71GoX4Nzb3BHK9ITlK0OHKWcMkvLxDywIQmLdow==
+react-native-deck-swiper@1.5.26:
+  version "1.5.26"
+  resolved "https://registry.yarnpkg.com/react-native-deck-swiper/-/react-native-deck-swiper-1.5.26.tgz#c55c443b4ebe92eceaa67fe2f7d0288df4966cd0"
+  integrity sha512-6sB1T0EDlrZ4SSxL2qUOltq5ufhBXQ9I0ZvflmkO6k+zDOtGJ0BoFnVSfdjIuXnfVpdZVdSHQmpKtDmtIxPzmQ==
   dependencies:
     prop-types "15.5.10"
 

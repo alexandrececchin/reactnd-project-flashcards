@@ -46,6 +46,12 @@ export class DeckDetails extends Component {
     goBack();
   };
 
+  onPressPlay = id => {
+    this.props.navigation.navigate('Game', {
+      entryId: id
+    });
+  };
+
   render() {
     const { deck, loading } = this.props;
 
@@ -82,7 +88,7 @@ export class DeckDetails extends Component {
                 size: 15,
                 color: 'white'
               }}
-              onPress={() => console.log("let's Play baby")}
+              onPress={() => this.onPressPlay(deck.id)}
               iconRight
               iconContainerStyle={{ marginLeft: 10 }}
               buttonStyle={{
@@ -133,7 +139,7 @@ export class DeckDetails extends Component {
             >
               {deck.name}
             </Text>
-            { !deck.cards || deck.cards.length <= 0 ? (
+            {!deck.cards || deck.cards.length <= 0 ? (
               <EmptyCardList />
             ) : (
               <CardList deckId={deck.id} cards={deck.cards} />
