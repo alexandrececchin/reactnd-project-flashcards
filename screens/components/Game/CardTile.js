@@ -12,16 +12,16 @@ import { white, purple, black } from '../../../utils/colors';
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
-const CardTile = ({ handleAnswer, card }) => {
+const CardTile = ({ handleAnswer, card, cardIndex }) => {
   onPressAnser = option => {
     handleAnswer(option);
   };
 
   onPressCard = () => {
-    this.card.flip()
-  }
+    this.card.flip();
+  };
 
-  createRef = card => (this.card = card)
+  createRef = card => (this.card = card);
   return (
     <View style={styles.container}>
       <CardFlip style={styles.cardContainer} ref={this.createRef}>
