@@ -48,11 +48,17 @@ export class DeckDetails extends Component {
 
   render() {
     const { deck, loading } = this.props;
+
     if (!deck) {
-      return <Loader loading={loading} />;
+      return (
+        <View style={{ flex: 1 }}>
+          <Text>Deck Delete</Text>
+        </View>
+      );
     }
     return (
       <View style={{ flex: 1 }}>
+        <Loader loading={loading} />
         <Animated.View
           style={{
             height: this.animatedHeaderHeight,
@@ -183,7 +189,7 @@ const mapDispatchToProps = (dispatch, { navigation }) => {
 const mapStateToProps = (state, { navigation }) => {
   const { entryId } = navigation.state.params;
   const deck = Selectors.getDeck(state, entryId);
-  console.log('Deck Delete', deck)
+  console.log('Deck Delete', deck);
   return {
     deck,
     loading: Selectors.isLoading(state)

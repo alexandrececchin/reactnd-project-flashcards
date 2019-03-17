@@ -55,7 +55,7 @@ export default combineReducers({ decks, loading });
 
 const getDecks = state => (state.decks ? Object.values(state.decks) : []);
 
-const getDeck = (state, id) => (state.decks[id] ? state.decks[id] : {});
+const getDeck = (state, id) => state.decks[id];
 
 const isLoading = state => state.loading;
 
