@@ -47,19 +47,6 @@ const Tabs = createBottomTabNavigator(
           />
         )
       }
-    },
-    NewCard: {
-      screen: NewCard,
-      navigationOptions: {
-        tabBarLabel: 'Add Card',
-        tabBarIcon: ({ tintColor }) => (
-          <MaterialCommunityIcons
-            name="cards-spade"
-            color={tintColor}
-            size={24}
-          />
-        )
-      }
     }
   },
   {
@@ -72,7 +59,7 @@ const Tabs = createBottomTabNavigator(
       },
       style: {
         activeTintColor: purple,
-        inactiveTintColor: "grey",
+        inactiveTintColor: 'grey',
         backgroundColor: white,
         shadowColor: 'rgba(0, 0, 0, 0.24)',
         shadowOffset: {
@@ -90,6 +77,15 @@ const MainNavigator = createAppContainer(
   createStackNavigator({
     Home: {
       screen: Tabs
+    },
+    NewCard: {
+      screen: NewCard,
+      navigationOptions: {
+        headerTintColor: white,
+        headerStyle: {
+          backgroundColor: purple
+        }
+      }
     },
     Game: {
       screen: Game,

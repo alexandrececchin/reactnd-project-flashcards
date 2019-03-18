@@ -23,8 +23,7 @@ const INITIAL_STATE = {
   question: '',
   question_valid: true,
   answer: '',
-  answer_valid: true,
-  deckId: ''
+  answer_valid: true
 };
 class NewCard extends Component {
   constructor(props) {
@@ -55,8 +54,8 @@ class NewCard extends Component {
   }
 
   addNewCard() {
-    const { addCardRequest, goBack } = this.props;
-    const { question, answer, deckId } = this.state;
+    const { addCardRequest, goBack, deckId } = this.props;
+    const { question, answer } = this.state;
 
     let newCard = {
       id: uuid.v4().replace(/-/g, ''),
@@ -72,7 +71,7 @@ class NewCard extends Component {
     });
   }
   render() {
-    const { decks, loading } = this.props;
+    const { loading } = this.props;
     const { question, question_valid, answer, answer_valid } = this.state;
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
@@ -84,28 +83,7 @@ class NewCard extends Component {
               <Text style={styles.plusText}>+</Text>
             </View>
           </View>
-          <View style={styles.Input}>
-            <Text style={{ fontWeight: 'bold', marginLeft: 10 }}>
-              Select a Deck
-            </Text>
-            <View style={styles.pickerText}>
-              <Picker
-                selectedValue={this.state.deckId}
-                onValueChange={itemValue =>
-                  this.setState({ deckId: itemValue })
-                }
-              >
-                {decks.map(deck => {
-                  return (
-                    <Picker.Item
-                      key={deck.id}
-                      label={deck.name}
-                      value={deck.id}
-                    />
-                  );
-                })}
-              </Picker>
-            </View>
+          <View style={styles.input}>
             <Input
               containerStyle={{ marginVertical: 5 }}
               onChangeText={question => this.setState({ question })}
@@ -235,9 +213,10 @@ const mapDispatchToProps = (dispatch, { navigation }) => {
 };
 
 const mapStateToProps = (state, { navigation }) => {
+  const { entryId } = navigation.state.params;
   return {
     loading: Selectors.isLoading(state),
-    decks: Selectors.getDecks(state),
+    deckId: entryId,
     navigation
   };
 };

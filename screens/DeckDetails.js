@@ -52,6 +52,12 @@ export class DeckDetails extends Component {
     });
   };
 
+  onPressAddCard = id => {
+    this.props.navigation.navigate('NewCard', {
+      entryId: id
+    });
+  };
+
   render() {
     const { deck, loading } = this.props;
 
@@ -101,7 +107,7 @@ export class DeckDetails extends Component {
             />
             <Button
               icon={{
-                name: 'minus-circle',
+                name: 'trash',
                 type: 'font-awesome',
                 size: 15,
                 color: 'white'
@@ -109,6 +115,25 @@ export class DeckDetails extends Component {
               iconRight
               iconContainerStyle={{ marginLeft: 10 }}
               onPress={() => this.deleteDeck(deck.id)}
+              buttonStyle={{
+                backgroundColor: purple,
+                borderColor: 'transparent',
+                borderWidth: 0,
+                borderRadius: 30,
+                marginLeft: 10
+              }}
+              containerStyle={{ width: 100 }}
+            />
+            <Button
+              icon={{
+                name: 'plus-circle',
+                type: 'font-awesome',
+                size: 15,
+                color: 'white'
+              }}
+              iconRight
+              iconContainerStyle={{ marginLeft: 10 }}
+              onPress={() => this.onPressAddCard(deck.id)}
               buttonStyle={{
                 backgroundColor: purple,
                 borderColor: 'transparent',
