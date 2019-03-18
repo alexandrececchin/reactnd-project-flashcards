@@ -9,11 +9,9 @@ import {
 import CardFlip from 'react-native-card-flip';
 import { Button } from 'react-native-elements';
 import { white, purple, black } from '../../../utils/colors';
-const SCREEN_HEIGHT = Dimensions.get('window').height;
-const SCREEN_WIDTH = Dimensions.get('window').width;
 
 const CardTile = ({ handleAnswer, card, cardIndex }) => {
-  onPressAnser = option => {
+  onPressAnswer = option => {
     handleAnswer(option);
   };
 
@@ -40,6 +38,7 @@ const CardTile = ({ handleAnswer, card, cardIndex }) => {
           <Text style={[styles.label, { color: black }]}>{card.answer}</Text>
           <View style={styles.buttonContainer}>
             <Button
+              onPress={() => this.onPressAnswer('wrong')}
               icon={{
                 name: 'times-circle',
                 type: 'font-awesome',
@@ -57,6 +56,7 @@ const CardTile = ({ handleAnswer, card, cardIndex }) => {
               containerStyle={{ width: 100 }}
             />
             <Button
+              onPress={() => this.onPressAnswer('correct')}
               icon={{
                 name: 'check-circle',
                 type: 'font-awesome',

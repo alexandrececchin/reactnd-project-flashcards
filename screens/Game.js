@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import {
-  View,
-  StyleSheet,
-  Button,
-  LayoutAnimation,
-  UIManager
-} from 'react-native';
+import { View, StyleSheet, Button, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { Creators as Actions } from '../state/actions';
 import { Selectors } from '../state/reducers';
@@ -13,54 +7,91 @@ import { bindActionCreators } from 'redux';
 import Loader from './components/Loader/loader';
 import { white, purple } from '../utils/colors';
 import CardTile from './components/Game/CardTile';
-import Swiper from 'react-native-deck-swiper/Swiper';
+import Swiper from 'react-native-deck-swiper';
 
 export class Game extends Component {
   state = {
-    currentIndex: 0
+    currentIndex: 0,
+    finishedGame: false,
+    deck: this.props.deck,
+    score: 0
   };
 
   handleCardAnwser = option => {
-    console.log(option);
+    const { deck, currentIndex, score } = this.state;
+    let newScore = 0;
+    if (option === 'correct') {
+      newScore = score + 1;
+      this.swiper.swipeRight();
+    } else {
+      newScore = score;
+      this.swiper.swipeLeft();
+    }
+    let finishedGame = currentIndex + 1 >= deck.cards.length;
+    this.setState({
+      score: newScore,
+      finishedGame
+    });
   };
 
-  getKey = card => card.id
+  onSwipedCard(currentIndex) {
+    const { deck } = this.props;
+    if (currentIndex + 1 < deck.cards.length) {
+      this.setState(prevState => ({
+        currentIndex: prevState.currentIndex + 1
+      }));
+    } else {
+      this.setState({
+        finishedGame: true
+      });
+    }
+  }
+
+  onSwipedAllCards() {
+    this.setState({
+      finishedGame: true
+    });
+  }
+
+  getKey = card => card.id;
 
   renderCardFlip = (card, cardIndex) => {
     return (
-      <CardTile handleAnswer={() => this.handleCardAnwser()} card={card} cardIndex={cardIndex} />
+      <CardTile
+        handleAnswer={this.handleCardAnwser}
+        card={card}
+        cardIndex={cardIndex}
+      />
     );
   };
 
   render() {
     const { loading } = this.props;
-    const { deck } = this.props;
-    const { currentIndex } = this.state;
+    const { currentIndex, finishedGame, deck, score } = this.state;
     return (
       <View style={styles.container}>
         <Loader loading={loading} />
-        <Swiper
-          ref={swiper => {
-            this.swiper = swiper;
-          }}
-          cards={deck.cards}
-          keyExtractor={this.getKey}
-          renderCard={this.renderCardFlip}
-          onSwiped={currentIndex => {
-            if (currentIndex + 1 < deck.cards.length) {
-              this.setState(prevState => ({
-                currentIndex: prevState.currentIndex + 1
-              }));
-            }
-          }}
-          cardIndex={currentIndex}
-          backgroundColor={white}
-          stackSize={3}
-          pointerEvents="box-none"
-          disableBottomSwipe
-          disableTopSwipe
-          stackAnimationFriction={100}
-        />
+        {finishedGame ? (
+          <Text>Game Finish = {score}</Text>
+        ) : (
+          <Swiper
+            ref={swiper => {
+              this.swiper = swiper;
+            }}
+            cards={deck.cards}
+            keyExtractor={this.getKey}
+            renderCard={this.renderCardFlip}
+            cardIndex={currentIndex}
+            onSwiped={ (index) => { this.onSwipedCard(index) } }
+            backgroundColor={white}
+            stackSize={1}
+            pointerEvents="box-none"
+            disableBottomSwipe
+            disableLeftSwipe
+            disableRightSwipe
+            disableTopSwipe
+          />
+        )}
       </View>
     );
   }
@@ -74,7 +105,7 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: white,
     borderRadius: 3,
-    elevation: 4,
+    elevation: 4
   }
 });
 
