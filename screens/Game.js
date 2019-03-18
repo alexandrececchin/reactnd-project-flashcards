@@ -1,21 +1,40 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Button, Text } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Creators as Actions } from '../state/actions';
 import { Selectors } from '../state/reducers';
-import { bindActionCreators } from 'redux';
-import Loader from './components/Loader/loader';
 import { white, purple } from '../utils/colors';
+import Loader from './components/Loader/loader';
 import CardTile from './components/Game/CardTile';
-import Swiper from 'react-native-deck-swiper';
 import ScoreTile from './components/Game/ScoreTile';
+import Swiper from 'react-native-deck-swiper';
 
 export class Game extends Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: navigation.getParam('Title', 'Game Start'),
+      headerTitleStyle: {
+        textAlign: 'center',
+        alignSelf: 'center'
+      }
+    };
+  };
+
   state = {
     currentIndex: 0,
     finishedGame: false,
     deck: this.props.deck,
     score: 0
+  };
+
+  componentDidUpdate = prevState => {
+    if (prevState.currentIndex !== this.state.currentIndex) {
+      this.updateTitle();
+    }
+    if (this.state.finishedGame) {
+      console.log('Add Notification for new game tomorrow');
+    }
   };
 
   restartGame = () => {
@@ -44,7 +63,7 @@ export class Game extends Component {
   };
 
   onSwipedCard(currentIndex) {
-    const { deck } = this.props;
+    const { deck } = this.state;
     if (currentIndex + 1 < deck.cards.length) {
       this.setState(prevState => ({
         currentIndex: prevState.currentIndex + 1
@@ -55,6 +74,14 @@ export class Game extends Component {
       });
     }
   }
+
+  updateTitle = () => {
+    const { deck, currentIndex } = this.state;
+    let remaining = deck.cards.length - (currentIndex + 1);
+    this.props.navigation.setParams({
+      Title: `${remaining} Remaining Questions`
+    });
+  };
 
   onSwipedAllCards() {
     this.setState({
