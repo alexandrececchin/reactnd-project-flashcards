@@ -4614,10 +4614,10 @@ react-native-debugger-open@^0.3.18:
     minimist "^1.2.0"
     semver "^5.4.1"
 
-react-native-deck-swiper@1.5.26:
-  version "1.5.26"
-  resolved "https://registry.yarnpkg.com/react-native-deck-swiper/-/react-native-deck-swiper-1.5.26.tgz#c55c443b4ebe92eceaa67fe2f7d0288df4966cd0"
-  integrity sha512-6sB1T0EDlrZ4SSxL2qUOltq5ufhBXQ9I0ZvflmkO6k+zDOtGJ0BoFnVSfdjIuXnfVpdZVdSHQmpKtDmtIxPzmQ==
+react-native-deck-swiper@1.6.4:
+  version "1.6.4"
+  resolved "https://registry.yarnpkg.com/react-native-deck-swiper/-/react-native-deck-swiper-1.6.4.tgz#4968e7de999840665690dd2fabe1f186fee89711"
+  integrity sha512-4ADGXomMs9CVx/OK3BWX5cekwtmmIjhxKvJHX8pi37XcXpReT1qkuVE04aL7sNydO+gHAtEIOrjvmSoHckAegg==
   dependencies:
     prop-types "15.5.10"
 
@@ -4654,6 +4654,13 @@ react-native-ratings@^6.3.0:
   dependencies:
     lodash "^4.17.4"
     prop-types "^15.5.10"
+
+react-native-realistic-deck-swiper@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-realistic-deck-swiper/-/react-native-realistic-deck-swiper-0.1.1.tgz#ef097535fdfabc9fcb09adfff87a72fc25bf4c59"
+  integrity sha512-l05GfIAXP8inSOvAwEZiJ1fAd8S9KvGj0D+/FdAmXTKXO6h2M07fsLlbhLZP1Lp62ffmwY5BgSJfbYi8UH7VxA==
+  dependencies:
+    prop-types "^15.7.2"
 
 react-native-reanimated@1.0.0-alpha.11:
   version "1.0.0-alpha.11"
