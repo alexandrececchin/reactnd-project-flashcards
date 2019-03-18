@@ -163,6 +163,7 @@ export class DeckDetails extends Component {
               }}
             >
               {deck.name}
+              {deck.cards.length > 0 && -deck.cards.length}
             </Text>
             {!deck.cards || deck.cards.length <= 0 ? (
               <EmptyCardList />
