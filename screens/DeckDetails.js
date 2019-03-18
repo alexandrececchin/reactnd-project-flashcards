@@ -103,6 +103,7 @@ export class DeckDetails extends Component {
                 borderWidth: 0,
                 borderRadius: 30
               }}
+              disabled={!deck.cards || deck.cards.length <= 0}
               containerStyle={{ width: 100 }}
             />
             <Button

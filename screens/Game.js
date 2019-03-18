@@ -39,11 +39,14 @@ export class Game extends Component {
   }
 
   restartGame = () => {
-    this.setState({
-      currentIndex: 0,
-      finishedGame: false,
-      score: 0
-    });
+    this.setState(
+      {
+        currentIndex: 0,
+        finishedGame: false,
+        score: 0
+      },
+      () => this.updateTitle()
+    );
   };
 
   handleCardAnwser = option => {
