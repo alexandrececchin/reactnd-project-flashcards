@@ -4,7 +4,11 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Creators as Actions } from '../state/actions';
 import { Selectors } from '../state/reducers';
-import { white, purple } from '../utils/colors';
+import { white } from '../utils/colors';
+import {
+  clearLocalNotification,
+  setLocalNotification
+} from '../utils/notificationHelpers';
 import Loader from './components/Loader/loader';
 import CardTile from './components/Game/CardTile';
 import ScoreTile from './components/Game/ScoreTile';
@@ -28,14 +32,11 @@ export class Game extends Component {
     score: 0
   };
 
-  componentDidUpdate = prevState => {
-    if (prevState.currentIndex !== this.state.currentIndex) {
-      this.updateTitle();
-    }
+  componentDidUpdate() {
     if (this.state.finishedGame) {
-      console.log('Add Notification for new game tomorrow');
+      clearLocalNotification().then(setLocalNotification());
     }
-  };
+  }
 
   restartGame = () => {
     this.setState({
@@ -65,9 +66,12 @@ export class Game extends Component {
   onSwipedCard(currentIndex) {
     const { deck } = this.state;
     if (currentIndex + 1 < deck.cards.length) {
-      this.setState(prevState => ({
-        currentIndex: prevState.currentIndex + 1
-      }));
+      this.setState(
+        prevState => ({
+          currentIndex: prevState.currentIndex + 1
+        }),
+        () => this.updateTitle()
+      );
     } else {
       this.setState({
         finishedGame: true

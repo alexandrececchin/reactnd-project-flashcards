@@ -12,7 +12,8 @@ import DeckDetails from './screens/DeckDetails';
 import NewCard from './screens/NewCard';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Constants } from 'expo';
-import { purple, white, blue } from './utils/colors';
+import { purple, white } from './utils/colors';
+import { setLocalNotification } from './utils/notificationHelpers';
 import { Provider } from 'react-redux';
 import store from './state';
 
@@ -109,6 +110,9 @@ const MainNavigator = createAppContainer(
 );
 
 export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification();
+  }
   render() {
     return (
       <Provider store={store}>
