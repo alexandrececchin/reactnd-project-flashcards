@@ -8,6 +8,7 @@ import Loader from './components/Loader/loader';
 import { white, purple } from '../utils/colors';
 import CardTile from './components/Game/CardTile';
 import Swiper from 'react-native-deck-swiper';
+import ScoreTile from './components/Game/ScoreTile';
 
 export class Game extends Component {
   state = {
@@ -15,6 +16,14 @@ export class Game extends Component {
     finishedGame: false,
     deck: this.props.deck,
     score: 0
+  };
+
+  restartGame = () => {
+    this.setState({
+      currentIndex: 0,
+      finishedGame: false,
+      score: 0
+    });
   };
 
   handleCardAnwser = option => {
@@ -66,13 +75,18 @@ export class Game extends Component {
   };
 
   render() {
-    const { loading } = this.props;
+    const { loading, goBack } = this.props;
     const { currentIndex, finishedGame, deck, score } = this.state;
     return (
       <View style={styles.container}>
         <Loader loading={loading} />
         {finishedGame ? (
-          <Text>Game Finish = {score}</Text>
+          <ScoreTile
+            score={score}
+            total={deck.cards.length}
+            restartGame={this.restartGame}
+            returnDeck={() => goBack()}
+          />
         ) : (
           <Swiper
             ref={swiper => {
@@ -82,7 +96,9 @@ export class Game extends Component {
             keyExtractor={this.getKey}
             renderCard={this.renderCardFlip}
             cardIndex={currentIndex}
-            onSwiped={ (index) => { this.onSwipedCard(index) } }
+            onSwiped={index => {
+              this.onSwipedCard(index);
+            }}
             backgroundColor={white}
             stackSize={1}
             pointerEvents="box-none"
